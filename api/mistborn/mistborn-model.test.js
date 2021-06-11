@@ -50,17 +50,51 @@ describe('Mistborn model', () => {
 
     describe('add()', () => {
         it('creates a new character', async () => {
-            const newChar = await Mistborn.add({ name: "Elend" });
+            const newChar = await Mistborn.add({ name: 'Elend' });
 
             expect(newChar).toMatchObject({ name: 'Elend' });
         });
 
         it('adds new character to the database', async () => {
-            await Mistborn.add({ name: "Elend" });
+            await Mistborn.add({ name: 'Elend' });
 
             const char = Mistborn.get()
 
             expect(char).toBeDefined();
+        });
+    });
+
+    describe('update()', () => {
+        it('returns the updated character', async () => {
+            const {id} = await Mistborn.add({ name: 'Elend' });
+
+            const updChar = await Mistborn.update(id, { name: 'Elend Venture' });
+
+            expect(updChar).toMatchObject({ name: 'Elend Venture' });
+            expect(updChar).not.toMatchObject({ name: 'Elend' });
+        });
+
+        it('replaces the old character with the new in the database', async () => {
+            const {id} = await Mistborn.add({ name: 'Elend' });
+
+            await Mistborn.update(id, { name: 'Elend Venture' });
+
+            const char = await Mistborn.getById(id);
+
+            expect(char).toMatchObject({ name: 'Elend Venture' });
+            expect(char).not.toMatchObject({ name: 'Elend' });
+        });
+    });
+
+    describe('remove()', () => {
+        it('removes the character from the database', async () => {
+            const {id} = await Mistborn.add({ name: 'Elend' });
+
+            await Mistborn.remove(id);
+
+            const char = await Mistborn.getById(id);
+
+            expect(char).toBeUndefined();
         });
     });
 });
