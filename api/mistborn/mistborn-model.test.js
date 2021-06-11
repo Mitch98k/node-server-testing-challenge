@@ -11,9 +11,6 @@ describe('Mistborn model', () => {
         await db('mistborn').truncate();
     });
 
-    // afterAll(async () => {
-    //     await db.destroy();
-    // });
     describe('get()', () => {
         it('returns an array of all the characters in the database', async () => {
             await Mistborn.add({ name: 'Kelsier' });

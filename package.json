@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Node Server Testing Challenge",
   "scripts": {
-    "test": "DB_ENV=testing jest --watch"
+    "test": "DB_ENV=testing jest --watch",
+    "server": "nodemon index.js"
   },
   "jest": {
     "testEnvironment": "node"
@@ -22,6 +23,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "knex": "^0.95.6",
+    "nodemon": "^2.0.7",
     "sqlite3": "^5.0.2"
   },
   "bugs": {
